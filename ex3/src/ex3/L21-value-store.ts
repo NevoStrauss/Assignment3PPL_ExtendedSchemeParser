@@ -23,6 +23,7 @@ export interface Closure {
     body: CExp[];
     env: Env;
 }
+
 export const makeClosure = (params: VarDecl[], body: CExp[], env: Env): Closure =>
     ({tag: "Closure", params, body, env});
 export const isClosure = (x: any): x is Closure => x.tag === "Closure";
@@ -73,8 +74,8 @@ export const compoundSExpToArray = (cs: CompoundSExp, res: string[]): string[] |
     isEmptySExp(cs.val2) ? append(valueToString(cs.val1), res) :
     isCompoundSExp(cs.val2) ? compoundSExpToArray(cs.val2, append(valueToString(cs.val1), res)) :
     ({ s1: append(valueToString(cs.val1), res), s2: valueToString(cs.val2)})
- 
-export const compoundSExpToString = (cs: CompoundSExp, css = compoundSExpToArray(cs, [])): string => 
+
+export const compoundSExpToString = (cs: CompoundSExp, css = compoundSExpToArray(cs, [])): string =>
     isArray(css) ? `(${css.join(' ')})` :
     `(${css.s1.join(' ')} . ${css.s2})`
 

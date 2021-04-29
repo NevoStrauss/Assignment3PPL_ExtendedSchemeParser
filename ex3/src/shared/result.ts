@@ -13,6 +13,7 @@ interface Failure {
     message: string;
 }
 
+
 export const makeOk = <T>(value: T): Result<T> =>
     ({ tag: "Ok", value: value });
 

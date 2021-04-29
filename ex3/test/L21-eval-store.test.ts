@@ -226,7 +226,7 @@ describe('L21 Box Eval', () => {
     })
 
     it('set! doesnt affect global scope if called from within a procedure', () => {
-        expect(bind(parseL21(`(L21 
+        expect(bind(parseL21(`(L21
                             (define v 5)
                             (define foo (lambda (x) (set! x 10)))
                             (foo v)
@@ -235,7 +235,7 @@ describe('L21 Box Eval', () => {
 
     it('evaluates set! inside a let expression', () => {
         expect(
-            bind(parseL21(`(L21 
+            bind(parseL21(`(L21
                 (let ((x 1))
                     (set! x (+ x 1))
                     x)
