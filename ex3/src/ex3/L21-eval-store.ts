@@ -55,7 +55,7 @@ const applicativeEval = (exp: CExp, env: Env): Result<Value> =>
             isStrExp(exp) ? makeOk(exp.val) :
                 isPrimOp(exp) ? makeOk(exp) :
                     isVarRef(exp) ? bind(applyEnv(env, exp.var),
-                        (addr:number)=>applyStore(theStore,addr)) : //not sure
+                        (addr:number)=>applyStore(theStore,addr)) :
                         isLitExp(exp) ? makeOk(exp.val as Value) :
                             isIfExp(exp) ? evalIf(exp, env) :
                                 isProcExp(exp) ? evalProc(exp, env) :
@@ -87,7 +87,7 @@ const applyProcedure = (proc: Value, args: Value[]): Result<Value> =>
 
 const applyClosure = (proc: Closure, args: Value[]): Result<Value> => {
     const vars = map((v: VarDecl) => v.var, proc.params);
-    const addresses = map((v:Value)=>{extendStore(theStore,v); return theStore.vals.length-1},args)    //not sure
+    const addresses = map((v:Value)=>{extendStore(theStore,v); return theStore.vals.length-1},args)
     const newEnv: ExtEnv = makeExtEnv(vars, addresses, proc.env)
     return evalSequence(proc.body, newEnv);
 }
@@ -126,7 +126,7 @@ const evalLet = (exp: LetExp, env: Env): Result<Value> => {
 
 
     return bind(vals, (vals: Value[]) => {
-        const addresses = map((v:Value)=>{extendStore(theStore,v); return theStore.vals.length-1},vals)  //not sure
+        const addresses = map((v:Value)=>{extendStore(theStore,v); return theStore.vals.length-1},vals)
         const newEnv = makeExtEnv(vars, addresses, env)
         return evalSequence(exp.body, newEnv);
     })
